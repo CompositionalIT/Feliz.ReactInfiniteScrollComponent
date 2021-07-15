@@ -91,35 +91,43 @@ let containerBox (model: Model) (dispatch: Msg -> unit) =
         ]
     ]
 
-let view (model: Model) (dispatch: Msg -> unit) =
-    Bulma.hero [
-        hero.isFullHeight
-        color.isPrimary
+open ReactRecycledScrolling
+
+type Image =
+    { Number : int
+      Alt : string
+      Url : string }
+
+let items =
+    [|0..1000|]
+    |> Array.map (fun i ->
+        { Number = i
+          Alt = $"thumbnail of {i}.jpg"
+          Url = $"https://picsum.photos/id/{i}/100/100.jpg" })
+
+let render (item : Image) =
+    Html.div [
         prop.style [
-            style.backgroundSize "cover"
-            style.backgroundImageUrl "https://unsplash.it/1200/900?random"
-            style.backgroundPosition "no-repeat center center fixed"
+            style.padding (length.px 10)
+            style.position.relative
+            style.boxSizing.borderBox;
+            style.borderTop (length.px 1, borderStyle.solid, "darkGray")
+            style.display.block
+            style.textAlign.center
         ]
         prop.children [
-            Bulma.heroHead [
-                Bulma.navbar [
-                    Bulma.container [ navBrand ]
-                ]
-            ]
-            Bulma.heroBody [
-                Bulma.container [
-                    Bulma.column [
-                        column.is6
-                        column.isOffset3
-                        prop.children [
-                            Bulma.title [
-                                text.hasTextCentered
-                                prop.text "InfiniteScrollComponent"
-                            ]
-                            containerBox model dispatch
-                        ]
-                    ]
-                ]
+            Html.div [ prop.text (sprintf "Image %i" item.Number) ]
+            Html.img [
+                prop.src item.Url
+                prop.alt item.Alt
             ]
         ]
+    ]
+
+let view (model: Model) (dispatch: Msg -> unit) =
+    ReactRecycledScrolling.create [
+        ReactRecycledScrolling.itemFn render
+        ReactRecycledScrolling.attrList items
+        ReactRecycledScrolling.className "scroller"
+        ReactRecycledScrolling.itemHeight 150
     ]
