@@ -18,7 +18,7 @@ jobs:
     - name: Restore tools
       run: dotnet tool restore
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet paket restore
       working-directory: ./fable/Feliz.ReactRecycledScrolling
     - name: Build
       run: dotnet build --configuration Release --no-restore
