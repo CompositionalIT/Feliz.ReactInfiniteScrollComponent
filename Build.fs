@@ -30,7 +30,7 @@ Target.create "Bundle" (fun _ ->
 
 Target.create "Azure" (fun _ ->
     let web = webApp {
-        name "InfiniteScrollComponent"
+        name "ReactInfiniteScrollComponent"
         zip_deploy "deploy"
     }
     let deployment = arm {
@@ -39,7 +39,7 @@ Target.create "Azure" (fun _ ->
     }
 
     deployment
-    |> Deploy.execute "InfiniteScrollComponent" Deploy.NoParameters
+    |> Deploy.execute "ReactInfiniteScrollComponent" Deploy.NoParameters
     |> ignore
 )
 
