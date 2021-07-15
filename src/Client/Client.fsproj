@@ -7,11 +7,11 @@
     <ItemGroup>
         <None Include="index.html" />
         <None Include="paket.references" />
-        <Compile Include="ReactRecycledScrolling.fs" />
         <Compile Include="Index.fs" />
         <Compile Include="App.fs" />
     </ItemGroup>
     <ItemGroup>
+      <ProjectReference Include="..\..\fable\Feliz.ReactRecycledScrolling\Feliz.ReactRecycledScrolling.fsproj" />
       <ProjectReference Include="..\Shared\Shared.fsproj" />
     </ItemGroup>
     <Import Project="..\..\.paket\Paket.Restore.targets" />
